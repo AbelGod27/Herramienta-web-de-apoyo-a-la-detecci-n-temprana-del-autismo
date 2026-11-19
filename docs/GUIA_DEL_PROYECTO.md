@@ -68,7 +68,7 @@ Cuando el padre contesta la última pregunta, el navegador envía `POST /api/apl
 | Carpeta | Qué contiene |
 |---|---|
 | `src/config/` | Lectura del `.env` (`env.js`) y el pool de conexiones a PostgreSQL (`db.js`, con `consulta()` y `transaccion()`) |
-| `src/routes/` | Un archivo por módulo: salud, auth, ninos, cuestionario, psicologos, citas, admin |
+| `src/routes/` | Un archivo por módulo: auth, ninos, cuestionario, psicologos, citas, admin |
 | `src/middlewares/` | Sesión y roles (`autenticacion.js`), límite de intentos (`limitador.js`), validación (`validar.js`), errores |
 | `src/validators/` | Reglas de `express-validator` de cada módulo |
 | `src/controllers/` | La lógica de cada ruta (consultas SQL parametrizadas) |

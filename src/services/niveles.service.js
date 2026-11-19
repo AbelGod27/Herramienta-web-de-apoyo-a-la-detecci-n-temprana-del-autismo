@@ -56,4 +56,4 @@ function ordenarCambios(actuales, nuevos) {
   return orden;
 }
 
-module.exports = { seTraslapan, rangosCubrenTodo, ordenarCambios, PUNTAJE_MINIMO, PUNTAJE_MAXIMO };
+module.exports = { rangosCubrenTodo, ordenarCambios };

@@ -44,4 +44,4 @@ const validarLogin = [
   body('contrasena').isString().notEmpty().withMessage('Escribe tu correo y tu contraseña'),
 ];
 
-module.exports = { reglasUsuario, validarRegistroPadre, validarLogin, PARENTESCOS };
+module.exports = { reglasUsuario, validarRegistroPadre, validarLogin };

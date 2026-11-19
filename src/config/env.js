@@ -16,7 +16,6 @@ if (faltantes.length > 0) {
 
 const config = {
   puerto: Number(process.env.PORT) || 3000,
-  entorno: process.env.NODE_ENV || 'development',
   zonaHoraria: process.env.TZ,
 
   bd: {

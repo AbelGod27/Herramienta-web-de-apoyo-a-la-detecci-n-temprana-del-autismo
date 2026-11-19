@@ -12,7 +12,7 @@ async function llamarApi(metodo, url, cuerpo) {
   const opciones = {
     method: metodo,
     headers: {},
-    credentials: 'same-origin', // envía la cookie de sesión (Fase 3)
+    credentials: 'same-origin', // envía la cookie de sesión
   };
 
   if (cuerpo !== undefined) {

@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
 const config = require('./config/env');
-const rutasSalud = require('./routes/salud.routes');
 const rutasCuestionario = require('./routes/cuestionario.routes');
 const rutasAuth = require('./routes/auth.routes');
 const rutasNinos = require('./routes/ninos.routes');
@@ -34,11 +33,10 @@ app.use(
 // Lee cuerpos JSON (límite pequeño: la API no recibe archivos)
 app.use(express.json({ limit: '100kb' }));
 
-// Lee las cookies (ahí viajará el token de sesión en la Fase 3)
+// Lee las cookies (ahí viaja el token de sesión)
 app.use(cookieParser());
 
 // --- Rutas de la API ---
-app.use('/api/salud', rutasSalud);
 app.use('/api/auth', rutasAuth);
 app.use('/api/ninos', rutasNinos);
 app.use('/api/psicologos', rutasPsicologos);

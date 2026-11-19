@@ -63,7 +63,6 @@ const validarSeguimiento = [
 
 module.exports = {
   FORMATO_HORA,
-  RESULTADOS_SEGUIMIENTO,
   reglaFechaCita,
   validarSolicitudCita,
   validarIdCita,

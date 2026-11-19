@@ -91,12 +91,10 @@ const validarNiveles = [
 
 module.exports = {
   validarCrearAdmin,
-  validarIdUsuario,
   validarCambioActivo,
   validarCambioValidacion,
   validarFiltroPsicologos,
   validarListaUsuarios,
   validarPregunta,
   validarNiveles,
-  sinFrasesDiagnosticas,
 };

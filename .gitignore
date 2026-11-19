@@ -4,8 +4,7 @@ node_modules/
 # Variables de entorno con credenciales (NUNCA subir)
 .env
 
-# Reportes y registros
-coverage/
+# Registros
 *.log
 
 # Texto oficial de las preguntas del M-CHAT-R (tiene derechos de autor):

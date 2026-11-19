@@ -99,4 +99,4 @@ function calcularEspacios({ fecha, diaSemana, horarios, bloqueos, citas, duracio
   return libres.map((e) => ({ hora_inicio: aHora(e.inicio), hora_fin: aHora(e.fin) }));
 }
 
-module.exports = { aMinutos, aHora, seCruzan, diaSemanaDeFecha, diasEntre, calcularEspacios };
+module.exports = { aMinutos, seCruzan, diaSemanaDeFecha, diasEntre, calcularEspacios };

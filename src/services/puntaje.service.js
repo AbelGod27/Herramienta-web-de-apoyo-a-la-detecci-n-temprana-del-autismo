@@ -68,4 +68,4 @@ function calcularResultado(respuestas, preguntas, niveles) {
   return { puntaje, nivel, detalle };
 }
 
-module.exports = { esRespuestaDeRiesgo, calcularPuntaje, obtenerNivel, calcularResultado };
+module.exports = { calcularResultado };

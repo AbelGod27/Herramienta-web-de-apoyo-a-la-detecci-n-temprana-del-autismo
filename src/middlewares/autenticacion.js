@@ -89,7 +89,6 @@ function requerirRol(...roles) {
 }
 
 module.exports = {
-  NOMBRE_COOKIE,
   iniciarSesion,
   cerrarSesion,
   requerirSesion,
