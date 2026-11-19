@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1>Iniciar sesión</h1>
+
+    <form id="form-login" class="tarjeta" novalidate>
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" name="correo" type="email" autocomplete="email" required>
+      </div>
+
+      <div class="campo">
+        <label for="contrasena">Contraseña</label>
+        <input id="contrasena" name="contrasena" type="password" autocomplete="current-password" required>
+      </div>
+
+      <p id="error-login" class="mensaje-error" role="alert"></p>
+
+      <button id="boton-entrar" class="boton boton-primario" type="submit">Entrar</button>
+    </form>
+
+    <p>¿No tienes cuenta? <a href="/registro.html">Crea una cuenta</a>.</p>
+    <p>¿Eres psicólogo? <a href="/registro-psicologo.html">Regístrate como profesional</a>.</p>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

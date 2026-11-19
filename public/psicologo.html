@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel del psicólogo – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/citas.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor barra-sesion">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+      <button id="boton-salir" class="boton-enlace" type="button">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1 id="saludo">Panel del psicólogo</h1>
+    <p id="mensaje-general" class="mensaje-exito" role="status"></p>
+
+    <!-- Solo si la cédula aún no ha sido validada por un administrador -->
+    <div id="aviso-validacion" class="nota-importante oculto">
+      <strong>Tu cuenta aún no ha sido validada.</strong> Un administrador revisará tu cédula profesional.
+      Mientras tanto puedes configurar tu horario, pero <strong>todavía no apareces para los padres</strong>.
+    </div>
+
+    <!-- ---------- Citas ---------- -->
+    <section class="tarjeta" aria-labelledby="titulo-citas">
+      <div class="encabezado-seccion">
+        <h2 id="titulo-citas">Mis citas</h2>
+        <div class="filtro">
+          <label for="filtro-estado">Mostrar</label>
+          <select id="filtro-estado">
+            <option value="activas">Pendientes (solicitadas y confirmadas)</option>
+            <option value="solicitada">Solicitadas</option>
+            <option value="confirmada">Confirmadas</option>
+            <option value="completada">Completadas</option>
+            <option value="cancelada">Canceladas</option>
+            <option value="todas">Todas</option>
+          </select>
+        </div>
+      </div>
+      <p id="sin-citas" class="oculto">No hay citas en esta categoría.</p>
+      <ul id="lista-citas" class="lista-citas"></ul>
+      <p id="error-citas" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <!-- ---------- Horario semanal ---------- -->
+    <section class="tarjeta" aria-labelledby="titulo-horario">
+      <h2 id="titulo-horario">Horario semanal</h2>
+      <p class="ayuda">Los padres solo pueden pedir citas dentro de los bloques activos. Cada bloque se divide según la duración de tus citas.</p>
+      <p id="sin-horario" class="oculto">Aún no tienes bloques de horario.</p>
+      <ul id="lista-horario" class="lista-simple-filas"></ul>
+
+      <form id="form-horario" class="formulario-en-linea" novalidate>
+        <h3>Agregar bloque</h3>
+        <div class="campos-fila">
+          <div class="campo">
+            <label for="dia-semana">Día</label>
+            <select id="dia-semana" name="dia_semana">
+              <option value="1">Lunes</option>
+              <option value="2">Martes</option>
+              <option value="3">Miércoles</option>
+              <option value="4">Jueves</option>
+              <option value="5">Viernes</option>
+              <option value="6">Sábado</option>
+              <option value="7">Domingo</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="horario-inicio">Desde</label>
+            <input id="horario-inicio" name="hora_inicio" type="time" required>
+          </div>
+          <div class="campo">
+            <label for="horario-fin">Hasta</label>
+            <input id="horario-fin" name="hora_fin" type="time" required>
+          </div>
+        </div>
+        <p id="error-horario" class="mensaje-error" role="alert"></p>
+        <button class="boton boton-primario" type="submit">Agregar bloque</button>
+      </form>
+    </section>
+
+    <!-- ---------- Bloqueos ---------- -->
+    <section class="tarjeta" aria-labelledby="titulo-bloqueos">
+      <h2 id="titulo-bloqueos">Días u horas no disponibles</h2>
+      <p class="ayuda">Úsalo para vacaciones, congresos o cualquier ausencia. Si no indicas horas, se bloquea el día completo.</p>
+      <p id="sin-bloqueos" class="oculto">No tienes bloqueos próximos.</p>
+      <ul id="lista-bloqueos" class="lista-simple-filas"></ul>
+
+      <form id="form-bloqueo" class="formulario-en-linea" novalidate>
+        <h3>Agregar bloqueo</h3>
+        <div class="campos-fila">
+          <div class="campo">
+            <label for="bloqueo-fecha">Fecha</label>
+            <input id="bloqueo-fecha" name="fecha" type="date" required>
+          </div>
+          <div class="campo">
+            <label for="bloqueo-inicio">Desde (opcional)</label>
+            <input id="bloqueo-inicio" name="hora_inicio" type="time">
+          </div>
+          <div class="campo">
+            <label for="bloqueo-fin">Hasta (opcional)</label>
+            <input id="bloqueo-fin" name="hora_fin" type="time">
+          </div>
+        </div>
+        <div class="campo">
+          <label for="bloqueo-motivo">Motivo (opcional)</label>
+          <input id="bloqueo-motivo" name="motivo" type="text" maxlength="200">
+        </div>
+        <p id="error-bloqueo" class="mensaje-error" role="alert"></p>
+        <button class="boton boton-primario" type="submit">Agregar bloqueo</button>
+      </form>
+    </section>
+
+    <!-- ---------- Perfil ---------- -->
+    <section class="tarjeta" aria-labelledby="titulo-perfil">
+      <h2 id="titulo-perfil">Mi perfil</h2>
+      <dl class="datos-resultado">
+        <dt>Cédula profesional</dt>
+        <dd id="dato-cedula"></dd>
+        <dt>Estado de la cuenta</dt>
+        <dd id="dato-validado"></dd>
+      </dl>
+
+      <form id="form-perfil" novalidate>
+        <div class="campo">
+          <label for="perfil-especialidad">Especialidad</label>
+          <input id="perfil-especialidad" name="especialidad" type="text" maxlength="100">
+        </div>
+        <div class="campo">
+          <label for="perfil-descripcion">Descripción para los padres</label>
+          <textarea id="perfil-descripcion" name="descripcion" rows="3" maxlength="1000"></textarea>
+        </div>
+        <div class="campo">
+          <label for="perfil-duracion">Duración de cada cita (minutos)</label>
+          <input id="perfil-duracion" name="duracion_cita_min" type="number" min="15" max="180" step="5" required>
+          <span class="ayuda">Entre 15 y 180 minutos. Las citas ya agendadas no cambian.</span>
+        </div>
+        <p id="error-perfil" class="mensaje-error" role="alert"></p>
+        <button class="boton boton-primario" type="submit">Guardar perfil</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      La plataforma no diagnostica: el resultado del cuestionario es un nivel de riesgo de apoyo para la entrevista.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/iconos.js"></script>
+  <script src="/js/psicologo.js"></script>
+</body>
+</html>

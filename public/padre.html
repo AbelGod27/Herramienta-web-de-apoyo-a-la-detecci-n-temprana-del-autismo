@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi panel – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/citas.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor barra-sesion">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+      <button id="boton-salir" class="boton-enlace" type="button">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1 id="saludo">Mi panel</h1>
+    <p id="mensaje-general" class="mensaje-exito" role="status"></p>
+
+    <!-- Aparece solo si hay un cuestionario anónimo terminado en esta pestaña -->
+    <section id="seccion-vincular" class="tarjeta aviso oculto" aria-labelledby="titulo-vincular">
+      <h2 id="titulo-vincular">Guardar tu cuestionario reciente</h2>
+      <p id="texto-pendiente"></p>
+
+      <form id="form-vincular" novalidate>
+        <div class="campo">
+          <label for="nino-vincular">¿De cuál de tus hijos es este cuestionario?</label>
+          <select id="nino-vincular" required></select>
+          <span class="ayuda">
+            ¿No aparece en la lista?
+            <button id="boton-registrar-desde-vincular" class="boton-enlace" type="button">Regístralo aquí</button>
+          </span>
+        </div>
+        <p id="error-vincular" class="mensaje-error" role="alert"></p>
+        <button class="boton boton-primario" type="submit">Guardar en su perfil</button>
+      </form>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="titulo-hijos">
+      <div class="encabezado-seccion">
+        <h2 id="titulo-hijos">Mis hijos</h2>
+        <!-- Solo aparece si ya tiene hijos registrados -->
+        <button id="boton-agregar-hijo" class="boton boton-secundario boton-chico oculto" type="button"
+                aria-expanded="false" aria-controls="seccion-registrar">+ Agregar hijo</button>
+      </div>
+      <p id="sin-hijos" class="oculto">Todavía no registras a ningún hijo o hija.</p>
+      <ul id="lista-hijos" class="lista-hijos"></ul>
+      <p id="error-hijos" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <!-- Se abre con el botón "Pedir cita" de la tarjeta de un hijo -->
+    <section id="seccion-cita" class="tarjeta oculto" aria-labelledby="titulo-cita">
+      <h2 id="titulo-cita" tabindex="-1">Pedir cita de seguimiento</h2>
+      <p id="texto-cita" class="ayuda"></p>
+      <p id="sin-psicologos" class="oculto">Por ahora no hay psicólogos disponibles. Intenta más tarde.</p>
+
+      <form id="form-cita" novalidate>
+        <div class="campo">
+          <label for="cita-psicologo">Psicólogo</label>
+          <select id="cita-psicologo" required></select>
+          <p id="cita-descripcion" class="ayuda"></p>
+        </div>
+
+        <div class="campo">
+          <label for="cita-fecha">Fecha</label>
+          <input id="cita-fecha" type="date" required>
+        </div>
+
+        <fieldset class="campo grupo-espacios">
+          <legend class="etiqueta">Horario</legend>
+          <p id="cita-espacios-mensaje" class="ayuda" aria-live="polite">Elige un psicólogo y una fecha para ver los horarios.</p>
+          <div id="cita-espacios" class="espacios"></div>
+        </fieldset>
+
+        <fieldset class="campo grupo-espacios">
+          <legend class="etiqueta">Modalidad</legend>
+          <div class="opciones">
+            <label class="opcion">
+              <input type="radio" name="modalidad" value="presencial" checked>
+              <span>Presencial</span>
+            </label>
+            <label class="opcion">
+              <input type="radio" name="modalidad" value="en_linea">
+              <span>En línea</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="campo">
+          <label for="cita-motivo">Motivo o comentarios (opcional)</label>
+          <textarea id="cita-motivo" rows="3" maxlength="500"></textarea>
+        </div>
+
+        <p id="error-cita" class="mensaje-error" role="alert"></p>
+        <div class="navegacion">
+          <button id="boton-cancelar-cita" class="boton boton-secundario" type="button">Cancelar</button>
+          <button id="boton-solicitar-cita" class="boton boton-primario" type="submit">Solicitar cita</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="titulo-mis-citas">
+      <h2 id="titulo-mis-citas">Mis citas</h2>
+      <p id="sin-citas" class="oculto">Aún no tienes citas. Puedes pedir una desde la tarjeta de tu hijo o hija.</p>
+      <ul id="lista-citas" class="lista-citas"></ul>
+      <p id="error-citas" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <!-- Abierta si no hay hijos; si ya hay, se abre con "+ Agregar hijo" -->
+    <section id="seccion-registrar" class="tarjeta oculto" aria-labelledby="titulo-registrar">
+      <h2 id="titulo-registrar" tabindex="-1">Registra a tu hijo o hija</h2>
+      <form id="form-nino" novalidate>
+        <div class="campo">
+          <label for="nombre-nino">Nombre</label>
+          <input id="nombre-nino" name="nombre" type="text" maxlength="80" required>
+        </div>
+
+        <div class="campo">
+          <label for="fecha-nacimiento">Fecha de nacimiento</label>
+          <input id="fecha-nacimiento" name="fecha_nacimiento" type="date" required>
+        </div>
+
+        <div class="campo">
+          <label for="sexo">Sexo (opcional)</label>
+          <select id="sexo" name="sexo">
+            <option value="">Prefiero no indicarlo</option>
+            <option value="F">Femenino</option>
+            <option value="M">Masculino</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label class="casilla" for="prematuro-nino">
+            <input id="prematuro-nino" type="checkbox">
+            Nació antes de las 37 semanas de embarazo (prematuro)
+          </label>
+        </div>
+
+        <div id="campo-semanas-nino" class="campo oculto">
+          <label for="semanas-nino">Semanas de embarazo al nacer</label>
+          <input id="semanas-nino" name="semanas_gestacion" type="number" inputmode="numeric" min="22" max="36">
+          <span class="ayuda">Número entre 22 y 36.</span>
+        </div>
+
+        <p id="error-nino" class="mensaje-error" role="alert"></p>
+        <div class="navegacion">
+          <button id="boton-cancelar-hijo" class="boton boton-secundario" type="button">Cancelar</button>
+          <button class="boton boton-primario" type="submit">Registrar</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/iconos.js"></script>
+  <script src="/js/padre.js"></script>
+</body>
+</html>

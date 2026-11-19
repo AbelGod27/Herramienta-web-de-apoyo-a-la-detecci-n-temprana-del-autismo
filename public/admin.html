@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor barra-sesion">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+      <button id="boton-salir" class="boton-enlace" type="button">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor contenedor-admin">
+    <h1>Panel de administración</h1>
+    <p id="texto-rol"></p>
+    <p id="mensaje-general" class="mensaje-exito" role="status"></p>
+    <p id="error-general" class="mensaje-error" role="alert"></p>
+
+    <!-- Índice para saltar entre secciones -->
+    <nav class="indice-admin" aria-label="Secciones del panel">
+      <a href="#seccion-estadisticas">Estadísticas</a>
+      <a href="#seccion-psicologos">Psicólogos</a>
+      <a href="#seccion-cuentas">Cuentas</a>
+      <a class="solo-principal oculto" href="#seccion-administradores">Administradores</a>
+      <a class="solo-principal oculto" href="#seccion-preguntas">Preguntas</a>
+      <a class="solo-principal oculto" href="#seccion-niveles">Niveles de riesgo</a>
+    </nav>
+
+    <!-- ===================== Estadísticas ===================== -->
+    <section id="seccion-estadisticas" class="tarjeta" aria-labelledby="titulo-estadisticas">
+      <div class="encabezado-seccion">
+        <h2 id="titulo-estadisticas">Estadísticas anónimas</h2>
+        <button id="boton-actualizar" class="boton boton-secundario boton-chico" type="button">Actualizar</button>
+      </div>
+      <p class="ayuda">Solo se muestran totales. No se ven nombres, correos ni datos de los niños.</p>
+
+      <div id="tarjetas-resumen" class="tarjetas-resumen"></div>
+
+      <h3>Cuestionarios por nivel de riesgo</h3>
+      <ul id="barras-nivel" class="barras"></ul>
+
+      <h3>Cuestionarios por edad</h3>
+      <ul id="barras-edad" class="barras"></ul>
+
+      <h3>Cuestionarios por mes (últimos 12 meses)</h3>
+      <ul id="barras-mes" class="barras"></ul>
+
+      <h3>Citas por estado</h3>
+      <ul id="barras-citas" class="barras"></ul>
+
+      <h3>Entrevistas de seguimiento</h3>
+      <p class="ayuda">En el M-CHAT-R/F, un puntaje de seguimiento de 2 o más se considera positivo.</p>
+      <ul id="barras-seguimiento" class="barras"></ul>
+      <p id="error-estadisticas" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <!-- ===================== Psicólogos ===================== -->
+    <section id="seccion-psicologos" class="tarjeta" aria-labelledby="titulo-psicologos">
+      <h2 id="titulo-psicologos">Validación de psicólogos</h2>
+      <p class="ayuda">Revisa la cédula profesional antes de validar. Solo los psicólogos validados aparecen para los padres.</p>
+      <div class="campo campo-filtro">
+        <label for="filtro-psicologos">Mostrar</label>
+        <select id="filtro-psicologos">
+          <option value="pendientes">Pendientes de validar</option>
+          <option value="validados">Validados</option>
+          <option value="todos">Todos</option>
+        </select>
+      </div>
+      <p id="sin-psicologos" class="oculto">No hay psicólogos en esta lista.</p>
+      <ul id="lista-psicologos" class="lista-admin"></ul>
+      <p id="error-psicologos" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <!-- ===================== Cuentas ===================== -->
+    <section id="seccion-cuentas" class="tarjeta" aria-labelledby="titulo-cuentas">
+      <h2 id="titulo-cuentas">Gestión de cuentas</h2>
+      <p class="ayuda">Suspender una cuenta impide iniciar sesión. Nunca se borran datos: se puede reactivar.</p>
+
+      <form id="form-buscar" class="form-buscar" novalidate>
+        <div class="campo">
+          <label for="buscar-texto">Buscar por nombre o correo</label>
+          <input id="buscar-texto" type="text" maxlength="100">
+        </div>
+        <div class="campo">
+          <label for="buscar-rol">Rol</label>
+          <select id="buscar-rol">
+            <option value="">Todos</option>
+            <option value="padre">Padres o tutores</option>
+            <option value="psicologo">Psicólogos</option>
+            <option value="admin_secundario">Administradores secundarios</option>
+            <option value="admin_principal">Administrador principal</option>
+          </select>
+        </div>
+        <button class="boton boton-primario" type="submit">Buscar</button>
+      </form>
+
+      <p id="total-cuentas" class="ayuda" aria-live="polite"></p>
+      <ul id="lista-cuentas" class="lista-admin"></ul>
+      <div class="navegacion">
+        <button id="pagina-anterior" class="boton boton-secundario" type="button">Anterior</button>
+        <button id="pagina-siguiente" class="boton boton-secundario" type="button">Siguiente</button>
+      </div>
+      <p id="error-cuentas" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <!-- ===================== Solo administrador principal ===================== -->
+    <section id="seccion-administradores" class="tarjeta solo-principal oculto" aria-labelledby="titulo-administradores">
+      <h2 id="titulo-administradores">Administradores secundarios</h2>
+      <ul id="lista-administradores" class="lista-admin"></ul>
+      <p id="sin-administradores" class="oculto">Todavía no hay administradores secundarios.</p>
+
+      <h3>Crear administrador secundario</h3>
+      <form id="form-admin" novalidate>
+        <div class="campo">
+          <label for="admin-nombre">Nombre</label>
+          <input id="admin-nombre" name="nombre" type="text" maxlength="80" required>
+        </div>
+        <div class="campo">
+          <label for="admin-apellidos">Apellidos</label>
+          <input id="admin-apellidos" name="apellidos" type="text" maxlength="120" required>
+        </div>
+        <div class="campo">
+          <label for="admin-correo">Correo electrónico</label>
+          <input id="admin-correo" name="correo" type="email" maxlength="120" autocomplete="off" required>
+        </div>
+        <div class="campo">
+          <label for="admin-contrasena">Contraseña inicial</label>
+          <input id="admin-contrasena" name="contrasena" type="password" minlength="8" maxlength="72"
+                 autocomplete="new-password" required aria-describedby="ayuda-admin-contrasena">
+          <span id="ayuda-admin-contrasena" class="ayuda">Mínimo 8 caracteres, con al menos una letra y un número.</span>
+        </div>
+        <p id="error-admin" class="mensaje-error" role="alert"></p>
+        <button class="boton boton-primario" type="submit">Crear administrador</button>
+      </form>
+    </section>
+
+    <section id="seccion-preguntas" class="tarjeta solo-principal oculto" aria-labelledby="titulo-preguntas">
+      <h2 id="titulo-preguntas">Preguntas del cuestionario</h2>
+      <p class="ayuda">
+        Edita una pregunta a la vez. Usa solo el texto oficial autorizado por los autores del instrumento.
+        Cambiar qué respuesta indica riesgo afecta a los cuestionarios que se terminen a partir de ahora.
+      </p>
+      <ol id="lista-preguntas" class="lista-admin lista-preguntas-admin"></ol>
+      <p id="error-preguntas" class="mensaje-error" role="alert"></p>
+    </section>
+
+    <section id="seccion-niveles" class="tarjeta solo-principal oculto" aria-labelledby="titulo-niveles">
+      <h2 id="titulo-niveles">Niveles de riesgo</h2>
+      <p class="ayuda">
+        Los rangos deben cubrir todos los puntajes del 0 al 20, sin huecos ni traslapes.
+        Las recomendaciones no deben afirmar un diagnóstico. Los íconos usan los nombres "bajo", "medio" y "alto".
+      </p>
+      <form id="form-niveles" novalidate>
+        <div id="campos-niveles"></div>
+        <p id="error-niveles" class="mensaje-error" role="alert"></p>
+        <button class="boton boton-primario" type="submit">Guardar niveles</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/iconos.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

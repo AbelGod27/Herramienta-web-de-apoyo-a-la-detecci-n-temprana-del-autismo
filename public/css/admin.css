@@ -1,0 +1,197 @@
+/* Estilos del panel de administración. Reutiliza las variables y clases de estilos.css. */
+
+/* El panel tiene tablas y barras: se permite un poco más de ancho */
+.contenedor-admin {
+  max-width: 60rem;
+}
+
+/* Índice de secciones */
+.indice-admin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.indice-admin a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+}
+
+/* Áreas de texto con el mismo estilo que los demás campos */
+.campo textarea {
+  width: 100%;
+  min-height: 6rem;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--gris-carbon);
+  background: var(--blanco);
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  resize: vertical;
+}
+
+/* ---------- Estadísticas ---------- */
+.tarjetas-resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.dato-resumen {
+  border: 1px solid #DCD5C8;
+  border-left: 6px solid var(--verde-salvia);
+  border-radius: var(--radio);
+  padding: 0.75rem 1rem;
+}
+
+.dato-resumen .numero {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--azul-petroleo);
+  line-height: 1.2;
+}
+
+.dato-resumen .descripcion {
+  font-size: 0.95rem;
+}
+
+/* Barras horizontales: el número siempre aparece como texto (la barra es decorativa) */
+.barras {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.barra-fila {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+  padding: 0.4rem 0;
+}
+
+.barra-etiqueta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.barra-valor {
+  font-weight: 700;
+}
+
+.barra-fondo {
+  height: 12px;
+  border-radius: 999px;
+  background: #E4DED3;
+  overflow: hidden;
+}
+
+.barra-relleno {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--azul-petroleo);
+}
+
+.barra-relleno.nivel-bajo  { background: var(--riesgo-bajo); }
+.barra-relleno.nivel-medio { background: var(--riesgo-medio); }
+.barra-relleno.nivel-alto  { background: var(--riesgo-alto); }
+
+/* ---------- Listas de psicólogos, cuentas y preguntas ---------- */
+.campo-filtro {
+  max-width: 20rem;
+}
+
+.lista-admin {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.elemento-admin {
+  border: 1px solid #DCD5C8;
+  border-radius: var(--radio);
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.elemento-admin h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.elemento-admin p {
+  margin: 0.15rem 0;
+}
+
+.elemento-admin .acciones-admin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Estado de la cuenta: texto + borde, nunca solo color */
+.estado-cuenta {
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.1rem 0.6rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.estado-activa     { color: var(--riesgo-bajo); }
+.estado-suspendida { color: var(--riesgo-alto); }
+.estado-pendiente  { color: var(--riesgo-medio); }
+
+.form-buscar {
+  display: grid;
+  gap: 0 1rem;
+  align-items: end;
+  margin-bottom: 0.5rem;
+}
+
+.form-buscar .boton {
+  margin-bottom: 1.25rem;
+}
+
+/* Preguntas: número visible y edición en línea */
+.lista-preguntas-admin .texto-pregunta {
+  font-weight: 600;
+}
+
+.fieldset-nivel {
+  border: 1px solid #DCD5C8;
+  border-radius: var(--radio);
+  padding: 1rem;
+  margin: 0 0 1rem;
+}
+
+.fieldset-nivel legend {
+  font-weight: 700;
+  padding: 0 0.35rem;
+}
+
+.rango-nivel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+@media (min-width: 40rem) {
+  .barra-fila {
+    grid-template-columns: 14rem 1fr;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .form-buscar {
+    grid-template-columns: 2fr 1fr auto;
+  }
+}

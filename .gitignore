@@ -1,0 +1,13 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno con credenciales (NUNCA subir)
+.env
+
+# Reportes y registros
+coverage/
+*.log
+
+# Texto oficial de las preguntas del M-CHAT-R (tiene derechos de autor):
+# se carga con "npm run cargar-preguntas" y NO se sube al repositorio.
+bd/preguntas.json

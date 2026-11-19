@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Detección temprana – Cuestionario para familias</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor barra-sesion">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+      <a class="boton-enlace" href="/login.html">Iniciar sesión</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1>Cuestionario sobre el desarrollo de tu hijo o hija</h1>
+
+    <section class="tarjeta">
+      <p>
+        Si tu hijo o hija tiene entre <strong>16 y 30 meses</strong>, puedes contestar un cuestionario
+        de <strong>20 preguntas de sí o no</strong> sobre su comportamiento diario. Toma unos 5 minutos
+        y <strong>no necesitas crear una cuenta</strong>.
+      </p>
+      <p>Al terminar verás un nivel de riesgo y una recomendación.</p>
+    </section>
+
+    <div class="nota-importante">
+      <strong>Importante:</strong> este cuestionario es una herramienta de apoyo para identificar
+      señales de alerta. <strong>No es un diagnóstico.</strong> Solo un profesional de la salud
+      puede hacer una evaluación del desarrollo.
+    </div>
+
+    <section class="tarjeta aviso" aria-labelledby="titulo-aviso">
+      <h2 id="titulo-aviso">Aviso de privacidad</h2>
+      <ul class="lista-simple">
+        <li>Para contestar <strong>no pedimos nombre, correo ni teléfono</strong>.</li>
+        <li>Te pedimos la fecha de nacimiento <strong>solo para calcular la edad en meses</strong>: no la guardamos.</li>
+        <li>Solo guardamos la edad en meses, las semanas de gestación (si fue prematuro) y las respuestas.</li>
+        <li>Las respuestas se usan para calcular el resultado y, de forma anónima, para estadísticas.</li>
+        <li>Si después decides crear una cuenta para pedir una cita, podrás vincular este resultado a tu hijo o hija.</li>
+      </ul>
+    </section>
+
+    <form id="form-inicio" class="tarjeta" novalidate>
+      <h2>Antes de empezar</h2>
+
+      <div class="campo">
+        <label for="fecha-nacimiento">Fecha de nacimiento de tu hijo o hija</label>
+        <input id="fecha-nacimiento" name="fecha_nacimiento" type="date" required
+               aria-describedby="ayuda-fecha edad-calculada">
+        <span id="ayuda-fecha" class="ayuda">El cuestionario es para niños de 16 a 30 meses. Calculamos la edad por ti.</span>
+        <p id="edad-calculada" class="edad-calculada" aria-live="polite"></p>
+      </div>
+
+      <div class="campo">
+        <label class="casilla" for="prematuro">
+          <input id="prematuro" type="checkbox">
+          Nació antes de las 37 semanas de embarazo (prematuro)
+        </label>
+      </div>
+
+      <div id="campo-semanas" class="campo oculto">
+        <label for="semanas-gestacion">Semanas de embarazo al nacer</label>
+        <input id="semanas-gestacion" name="semanas_gestacion" type="number" inputmode="numeric"
+               min="22" max="36" step="1" aria-describedby="ayuda-semanas">
+        <span id="ayuda-semanas" class="ayuda">Número entre 22 y 36. Si no lo sabes con exactitud, escribe un aproximado.</span>
+      </div>
+
+      <p id="error-inicio" class="mensaje-error" role="alert"></p>
+
+      <button id="boton-comenzar" class="boton boton-primario" type="submit">Comenzar cuestionario</button>
+    </form>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/inicio.js"></script>
+</body>
+</html>

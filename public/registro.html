@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear cuenta – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1>Crear cuenta</h1>
+    <p>
+      Con una cuenta puedes guardar el resultado en el perfil de tu hijo o hija y pedir una entrevista
+      de seguimiento con un psicólogo. ¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a>.
+    </p>
+
+    <form id="form-registro" class="tarjeta" novalidate>
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text" autocomplete="given-name" maxlength="80" required>
+      </div>
+
+      <div class="campo">
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" name="apellidos" type="text" autocomplete="family-name" maxlength="120" required>
+      </div>
+
+      <div class="campo">
+        <label for="parentesco">Parentesco con el niño o niña</label>
+        <select id="parentesco" name="parentesco" required>
+          <option value="">Elige una opción</option>
+          <option value="madre">Madre</option>
+          <option value="padre">Padre</option>
+          <option value="abuelo">Abuela o abuelo</option>
+          <option value="tutor_legal">Tutor legal</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" name="correo" type="email" autocomplete="email" maxlength="120" required>
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono (opcional)</label>
+        <input id="telefono" name="telefono" type="text" inputmode="tel" autocomplete="tel" maxlength="20">
+      </div>
+
+      <div class="campo">
+        <label for="contrasena">Contraseña</label>
+        <input id="contrasena" name="contrasena" type="password" autocomplete="new-password"
+               minlength="8" maxlength="72" required aria-describedby="ayuda-contrasena">
+        <span id="ayuda-contrasena" class="ayuda">Mínimo 8 caracteres, con al menos una letra y un número.</span>
+      </div>
+
+      <div class="campo">
+        <label for="confirmar">Confirma tu contraseña</label>
+        <input id="confirmar" type="password" autocomplete="new-password" maxlength="72" required>
+      </div>
+
+      <section class="aviso tarjeta" aria-labelledby="titulo-aviso-registro">
+        <h2 id="titulo-aviso-registro">Aviso de privacidad</h2>
+        <ul class="lista-simple">
+          <li>Guardamos tus datos de contacto y los datos de tus hijos (nombre, fecha de nacimiento,
+            semanas de gestación y sexo, si los indicas) para darte acceso a sus resultados y gestionar citas.</li>
+          <li>El psicólogo con quien agendes una cita podrá ver el resultado y las respuestas del cuestionario de ese niño.</li>
+          <li>Los administradores solo ven estadísticas anónimas, no los datos de tus hijos.</li>
+          <li>Tu contraseña se guarda cifrada y nadie puede leerla.</li>
+        </ul>
+      </section>
+
+      <div class="campo">
+        <label class="casilla" for="acepto-aviso">
+          <input id="acepto-aviso" name="acepto_aviso" type="checkbox" required>
+          He leído el aviso de privacidad y doy mi consentimiento expreso para el tratamiento de mis datos
+          y los de mis hijos con los fines descritos.
+        </label>
+      </div>
+
+      <p id="error-registro" class="mensaje-error" role="alert"></p>
+
+      <button id="boton-registrar" class="boton boton-primario" type="submit">Crear cuenta</button>
+    </form>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/registro.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultado – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <!-- Solo aparece al imprimir -->
+    <p class="solo-impresion"><strong>Detección temprana</strong> – Resultado del cuestionario de cribado (16 a 30 meses)</p>
+
+    <h1>Resultado del cuestionario</h1>
+
+    <p id="cargando" aria-live="polite">Cargando resultado…</p>
+    <p id="error-resultado" class="mensaje-error" role="alert"></p>
+
+    <div id="resultado" class="oculto">
+      <section class="tarjeta">
+        <!-- El nivel se muestra con ícono + texto, nunca solo con color -->
+        <div id="nivel" class="resultado-nivel">
+          <span id="nivel-icono" aria-hidden="true"></span>
+          <p id="nivel-texto" class="nivel-texto"></p>
+        </div>
+
+        <p id="puntaje"></p>
+
+        <h2>Recomendación</h2>
+        <p id="recomendacion"></p>
+      </section>
+
+      <section class="tarjeta">
+        <h2>Datos del cuestionario</h2>
+        <dl class="datos-resultado">
+          <dt id="etiqueta-nino" class="oculto">Niño o niña</dt>
+          <dd id="dato-nino" class="oculto"></dd>
+          <dt>Edad</dt>
+          <dd id="dato-edad"></dd>
+          <dt id="etiqueta-semanas" class="oculto">Nació a las</dt>
+          <dd id="dato-semanas" class="oculto"></dd>
+          <dt>Fecha</dt>
+          <dd id="dato-fecha"></dd>
+        </dl>
+      </section>
+
+      <section class="tarjeta" aria-labelledby="titulo-respuestas">
+        <h2 id="titulo-respuestas">Respuestas</h2>
+        <p>
+          Las respuestas marcadas con <strong>"Posible señal de alerta"</strong> son las que suman al puntaje.
+          Una sola señal no significa un problema: lo importante es el conjunto.
+        </p>
+        <ol id="lista-respuestas" class="lista-respuestas"></ol>
+      </section>
+
+      <div class="nota-importante">
+        <strong>Este resultado no es un diagnóstico.</strong> Indica si hay señales que conviene revisar
+        con un profesional. Solo un profesional de la salud puede evaluar el desarrollo de tu hijo o hija.
+      </div>
+
+      <div class="grupo-botones no-imprimir">
+        <button id="boton-imprimir" class="boton boton-primario" type="button">Imprimir o guardar como PDF</button>
+        <a id="boton-seguimiento" class="boton boton-acento" href="/registro.html">Quiero una entrevista de seguimiento</a>
+        <a id="boton-nuevo" class="boton boton-secundario" href="/">Contestar otro cuestionario</a>
+      </div>
+    </div>
+    <!-- Aviso de derechos de autor: obligatorio en toda reproducción, también al imprimir -->
+    <p class="derechos">
+      M-CHAT-R/F™ © 2009 Diana Robins, Deborah Fein, &amp; Marianne Barton. Versión en español para el hemisferio occidental. Utilizado con autorización.
+    </p>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/iconos.js"></script>
+  <script src="/js/resultado.js"></script>
+</body>
+</html>

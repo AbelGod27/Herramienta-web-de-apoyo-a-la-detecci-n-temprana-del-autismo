@@ -1,0 +1,122 @@
+[
+  {
+    "numero": 1,
+    "texto": "Escribe aquí el texto oficial de la pregunta 1",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 1 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 2,
+    "texto": "Escribe aquí el texto oficial de la pregunta 2",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 2 (o deja null si no tiene)",
+    "riesgo_si_responde": true
+  },
+  {
+    "numero": 3,
+    "texto": "Escribe aquí el texto oficial de la pregunta 3",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 3 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 4,
+    "texto": "Escribe aquí el texto oficial de la pregunta 4",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 4 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 5,
+    "texto": "Escribe aquí el texto oficial de la pregunta 5",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 5 (o deja null si no tiene)",
+    "riesgo_si_responde": true
+  },
+  {
+    "numero": 6,
+    "texto": "Escribe aquí el texto oficial de la pregunta 6",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 6 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 7,
+    "texto": "Escribe aquí el texto oficial de la pregunta 7",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 7 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 8,
+    "texto": "Escribe aquí el texto oficial de la pregunta 8",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 8 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 9,
+    "texto": "Escribe aquí el texto oficial de la pregunta 9",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 9 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 10,
+    "texto": "Escribe aquí el texto oficial de la pregunta 10",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 10 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 11,
+    "texto": "Escribe aquí el texto oficial de la pregunta 11",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 11 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 12,
+    "texto": "Escribe aquí el texto oficial de la pregunta 12",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 12 (o deja null si no tiene)",
+    "riesgo_si_responde": true
+  },
+  {
+    "numero": 13,
+    "texto": "Escribe aquí el texto oficial de la pregunta 13",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 13 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 14,
+    "texto": "Escribe aquí el texto oficial de la pregunta 14",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 14 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 15,
+    "texto": "Escribe aquí el texto oficial de la pregunta 15",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 15 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 16,
+    "texto": "Escribe aquí el texto oficial de la pregunta 16",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 16 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 17,
+    "texto": "Escribe aquí el texto oficial de la pregunta 17",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 17 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 18,
+    "texto": "Escribe aquí el texto oficial de la pregunta 18",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 18 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 19,
+    "texto": "Escribe aquí el texto oficial de la pregunta 19",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 19 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  },
+  {
+    "numero": 20,
+    "texto": "Escribe aquí el texto oficial de la pregunta 20",
+    "ejemplo": "Escribe aquí el ejemplo oficial de la pregunta 20 (o deja null si no tiene)",
+    "riesgo_si_responde": false
+  }
+]

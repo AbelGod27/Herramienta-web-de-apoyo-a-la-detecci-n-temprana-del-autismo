@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cuestionario – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1>Cuestionario</h1>
+
+    <!-- Instrucciones oficiales del M-CHAT-R (sin modificar; solo se omite la indicación
+         de "rodear con un círculo", propia del formato en papel) -->
+    <section class="tarjeta aviso instrucciones" aria-labelledby="titulo-instrucciones">
+      <h2 id="titulo-instrucciones">Instrucciones</h2>
+      <p>
+        Por favor conteste las siguientes preguntas teniendo en cuenta el comportamiento que su
+        hijo/a presenta <strong>usualmente</strong>. Si ha notado cierto comportamiento algunas veces,
+        pero no es algo que hace usualmente, por favor conteste <strong>no</strong>.
+      </p>
+    </section>
+
+    <div class="progreso">
+      <p id="progreso-texto" class="progreso-texto" aria-live="polite">Cargando preguntas…</p>
+      <progress id="barra-progreso" max="20" value="0" aria-labelledby="progreso-texto"></progress>
+    </div>
+
+    <form id="form-pregunta" class="tarjeta oculto" novalidate>
+      <fieldset class="pregunta">
+        <legend id="texto-pregunta" tabindex="-1"></legend>
+        <p id="ejemplo-pregunta" class="pregunta-ejemplo"></p>
+
+        <div class="opciones">
+          <label class="opcion">
+            <input type="radio" name="respuesta" value="si">
+            <span>Sí</span>
+          </label>
+          <label class="opcion">
+            <input type="radio" name="respuesta" value="no">
+            <span>No</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <p id="error-pregunta" class="mensaje-error" role="alert"></p>
+
+      <div class="navegacion">
+        <button id="boton-anterior" class="boton boton-secundario" type="button">Anterior</button>
+        <button id="boton-siguiente" class="boton boton-primario" type="submit">Siguiente</button>
+      </div>
+    </form>
+
+    <p id="error-general" class="mensaje-error" role="alert"></p>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Puedes regresar con "Anterior" para cambiar una respuesta antes de ver el resultado.
+      <p class="derechos">
+        M-CHAT-R/F™ © 2009 Diana Robins, Deborah Fein, &amp; Marianne Barton. Versión en español para el hemisferio occidental. Utilizado con autorización.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/cuestionario.js"></script>
+</body>
+</html>

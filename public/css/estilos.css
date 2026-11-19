@@ -1,0 +1,633 @@
+/* =====================================================================
+   Estilos generales. Diseño "primero celular": las reglas base son para
+   pantallas pequeñas y las @media agregan ajustes para pantallas grandes.
+   Sin fuentes externas: se usa la fuente del sistema (funciona sin internet).
+   ===================================================================== */
+
+:root {
+  --azul-petroleo: #2F6F8F;  /* botones, encabezados */
+  --verde-salvia:  #7FA58A;  /* detalles, ilustraciones (nunca para texto) */
+  --durazno:       #F2A97E;  /* acentos; texto encima en gris carbón */
+  --crema:         #FAF7F2;  /* fondo */
+  --gris-carbon:   #2B3440;  /* texto principal */
+  --riesgo-bajo:   #2E7D57;
+  --riesgo-medio:  #9A6412;
+  --riesgo-alto:   #B5452F;
+
+  --blanco: #FFFFFF;
+  --gris-borde: #6B7480;     /* bordes de campos: contraste 4.6:1 sobre blanco */
+  --radio: 12px;
+  --sombra: 0 2px 8px rgba(43, 52, 64, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--gris-carbon);
+  background: var(--crema);
+}
+
+/* Enlace para saltar al contenido con teclado */
+.saltar {
+  position: absolute;
+  left: -9999px;
+}
+.saltar:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--blanco);
+  z-index: 10;
+}
+
+/* Foco visible para quienes navegan con teclado */
+:focus-visible {
+  outline: 3px solid var(--azul-petroleo);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--azul-petroleo);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+a {
+  color: var(--azul-petroleo);
+}
+
+/* ---------- Encabezado y pie ---------- */
+.encabezado {
+  background: var(--blanco);
+  border-bottom: 4px solid var(--verde-salvia);
+}
+
+.encabezado .contenedor {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.marca {
+  font-weight: 700;
+  color: var(--azul-petroleo);
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.pie {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  font-size: 0.95rem;
+  border-top: 1px solid #E4DED3;
+}
+
+/* ---------- Estructura ---------- */
+.contenedor {
+  width: 100%;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+main.contenedor {
+  padding-top: 1.5rem;
+}
+
+.tarjeta {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.aviso {
+  border-left: 6px solid var(--verde-salvia);
+}
+
+.nota-importante {
+  background: #FDEBDD; /* durazno muy claro: contraste alto con el texto */
+  border-left: 6px solid var(--durazno);
+  border-radius: var(--radio);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.lista-simple {
+  padding-left: 1.25rem;
+}
+
+/* ---------- Formularios ---------- */
+.campo {
+  margin-bottom: 1.25rem;
+}
+
+.campo label,
+.etiqueta {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.campo input[type="number"],
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="password"],
+.campo input[type="date"],
+.campo select {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--gris-carbon);
+  background: var(--blanco);
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+}
+
+.ayuda {
+  display: block;
+  font-size: 0.95rem;
+  margin-top: 0.3rem;
+}
+
+.edad-calculada {
+  margin: 0.4rem 0 0;
+  font-weight: 700;
+  color: var(--azul-petroleo);
+}
+
+.edad-calculada:empty {
+  display: none;
+}
+
+.casilla {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.casilla input {
+  width: 24px;
+  height: 24px;
+  margin: 0.15rem 0 0;
+  flex-shrink: 0;
+  accent-color: var(--azul-petroleo);
+}
+
+.mensaje-error {
+  color: var(--riesgo-alto);
+  font-weight: 600;
+  margin: 0.75rem 0;
+}
+
+.mensaje-error:empty {
+  display: none;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0.75rem 1.5rem;
+  font: inherit;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 2px solid var(--azul-petroleo);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+
+.boton-primario {
+  background: var(--azul-petroleo);
+  color: var(--blanco);
+}
+
+.boton-primario:hover {
+  background: #255A75;
+}
+
+.boton-secundario {
+  background: var(--blanco);
+  color: var(--azul-petroleo);
+}
+
+.boton-secundario:hover {
+  background: #EAF2F6;
+}
+
+.boton-acento {
+  background: var(--durazno);
+  border-color: var(--durazno);
+  color: var(--gris-carbon);
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.grupo-botones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Cuestionario ---------- */
+.progreso {
+  margin-bottom: 1.25rem;
+}
+
+.progreso-texto {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+progress {
+  width: 100%;
+  height: 14px;
+  appearance: none;
+  border: none;
+  border-radius: 999px;
+  background: #E4DED3;
+  overflow: hidden;
+}
+
+progress::-webkit-progress-bar {
+  background: #E4DED3;
+  border-radius: 999px;
+}
+
+progress::-webkit-progress-value {
+  background: var(--azul-petroleo);
+  border-radius: 999px;
+}
+
+progress::-moz-progress-bar {
+  background: var(--azul-petroleo);
+  border-radius: 999px;
+}
+
+.pregunta {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pregunta legend {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gris-carbon);
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+
+.pregunta-ejemplo {
+  font-style: italic;
+  margin-top: 0;
+}
+
+.opciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+/* Cada opción es un radio oculto visualmente con una etiqueta grande */
+.opcion input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.opcion span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: 2px solid var(--gris-borde);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  cursor: pointer;
+}
+
+.opcion input:checked + span {
+  background: var(--azul-petroleo);
+  border-color: var(--azul-petroleo);
+  color: var(--blanco);
+}
+
+.opcion input:focus-visible + span {
+  outline: 3px solid var(--azul-petroleo);
+  outline-offset: 3px;
+}
+
+.navegacion {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Resultado ---------- */
+.resultado-nivel {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radio);
+  border: 3px solid currentColor;
+  background: var(--blanco);
+  margin-bottom: 1rem;
+}
+
+.resultado-nivel svg {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.resultado-nivel .nivel-texto {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.nivel-bajo  { color: var(--riesgo-bajo); }
+.nivel-medio { color: var(--riesgo-medio); }
+.nivel-alto  { color: var(--riesgo-alto); }
+.nivel-otro  { color: var(--azul-petroleo); }
+
+.datos-resultado {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  margin: 0;
+}
+
+.datos-resultado dt {
+  font-weight: 600;
+}
+
+.datos-resultado dd {
+  margin: 0;
+}
+
+/* Etiqueta pequeña de nivel (historial): ícono + texto */
+.etiqueta-nivel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+}
+
+.icono-nivel svg {
+  width: 1.2em;
+  height: 1.2em;
+  display: block;
+}
+
+/* Lista de respuestas en la página de resultado */
+.lista-respuestas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.respuesta {
+  padding: 0.75rem 0 0.75rem 0.9rem;
+  border-bottom: 1px solid #E4DED3;
+  border-left: 4px solid transparent;
+}
+
+/* Las respuestas con señal de alerta llevan borde, ícono y texto (no solo color) */
+.respuesta-alerta {
+  border-left-color: var(--riesgo-medio);
+}
+
+.respuesta-pregunta {
+  margin: 0;
+  font-weight: 600;
+}
+
+.respuesta-valor {
+  margin: 0.15rem 0;
+}
+
+/* ---------- Sesión y paneles ---------- */
+.barra-sesion .boton-enlace {
+  margin-left: auto;
+}
+
+.boton-enlace {
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--azul-petroleo);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mensaje-exito {
+  color: var(--riesgo-bajo);
+  font-weight: 600;
+}
+
+.mensaje-exito:empty {
+  display: none;
+}
+
+.lista-hijos,
+.lista-historial {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Título de sección con un botón a la derecha ("Mis hijos  [+ Agregar hijo]") */
+.encabezado-seccion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.encabezado-seccion h2 {
+  margin: 0;
+}
+
+/* Botón más compacto, para acciones secundarias junto a un título */
+.boton.boton-chico {
+  width: auto;
+  min-height: 44px; /* sigue siendo cómodo de tocar */
+  padding: 0.4rem 1rem;
+}
+
+/* Cada hijo en su propio recuadro */
+.hijo {
+  border: 1px solid #DCD5C8;
+  border-radius: var(--radio);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.hijo:last-child {
+  margin-bottom: 0;
+}
+
+.hijo h3 {
+  margin: 0 0 0.15rem;
+}
+
+.hijo-datos {
+  margin: 0 0 0.75rem;
+}
+
+/* Acciones del hijo: en celular una debajo de otra a todo el ancho;
+   en pantallas medianas, en una sola fila y del mismo tamaño */
+.acciones-hijo {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.acciones-hijo .boton {
+  width: 100%;
+  gap: 0.4rem;
+}
+
+.historial {
+  margin-top: 0.75rem;
+}
+
+.lista-historial li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #E4DED3;
+}
+
+/* Aviso de derechos de autor del M-CHAT-R/F */
+.derechos {
+  font-size: 0.85rem;
+  margin: 1.5rem 0 0;
+}
+
+.solo-impresion {
+  display: none;
+}
+
+.oculto {
+  display: none !important;
+}
+
+/* ---------- Pantallas medianas en adelante ---------- */
+@media (min-width: 40rem) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .tarjeta {
+    padding: 1.75rem;
+  }
+
+  .boton {
+    width: auto;
+  }
+
+  .grupo-botones {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .acciones-hijo {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr; /* todas las columnas del mismo ancho */
+  }
+}
+
+/* ---------- Impresión (descargar como PDF desde el navegador) ---------- */
+@media print {
+  body {
+    background: var(--blanco);
+    font-size: 12pt;
+  }
+
+  .encabezado,
+  .pie,
+  .no-imprimir,
+  .saltar {
+    display: none !important;
+  }
+
+  .solo-impresion {
+    display: block;
+  }
+
+  .tarjeta,
+  .nota-importante {
+    box-shadow: none;
+    border: 1px solid #999;
+    break-inside: avoid;
+  }
+
+  /* Que una respuesta no quede partida entre dos hojas */
+  .respuesta {
+    break-inside: avoid;
+  }
+
+  /* La tarjeta de respuestas es larga: se permite que continúe en otra hoja */
+  .tarjeta:has(.lista-respuestas) {
+    break-inside: auto;
+  }
+
+  /* Los colores de fondo no siempre se imprimen; el borde y el texto sí */
+  .respuesta-alerta,
+  .resultado-nivel {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de psicólogo – Detección temprana</title>
+  <link rel="icon" href="/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/citas.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <img class="logo" src="/img/logo.svg" alt="">
+      <a class="marca" href="/">Detección temprana</a>
+    </div>
+  </header>
+
+  <main id="contenido" class="contenedor">
+    <h1>Registro de psicólogo</h1>
+    <p>
+      Regístrate para recibir solicitudes de entrevista de seguimiento. Un administrador revisará tu
+      cédula profesional; mientras tanto podrás entrar y configurar tu horario, pero
+      <strong>no aparecerás para los padres hasta que tu cuenta sea validada</strong>.
+      ¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a>.
+    </p>
+
+    <form id="form-registro-psicologo" class="tarjeta" novalidate>
+      <h2>Datos personales</h2>
+
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text" autocomplete="given-name" maxlength="80" required>
+      </div>
+
+      <div class="campo">
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" name="apellidos" type="text" autocomplete="family-name" maxlength="120" required>
+      </div>
+
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" name="correo" type="email" autocomplete="email" maxlength="120" required>
+      </div>
+
+      <div class="campo">
+        <label for="telefono">Teléfono (opcional)</label>
+        <input id="telefono" name="telefono" type="text" inputmode="tel" autocomplete="tel" maxlength="20">
+      </div>
+
+      <div class="campo">
+        <label for="contrasena">Contraseña</label>
+        <input id="contrasena" name="contrasena" type="password" autocomplete="new-password"
+               minlength="8" maxlength="72" required aria-describedby="ayuda-contrasena">
+        <span id="ayuda-contrasena" class="ayuda">Mínimo 8 caracteres, con al menos una letra y un número.</span>
+      </div>
+
+      <div class="campo">
+        <label for="confirmar">Confirma tu contraseña</label>
+        <input id="confirmar" type="password" autocomplete="new-password" maxlength="72" required>
+      </div>
+
+      <h2>Datos profesionales</h2>
+
+      <div class="campo">
+        <label for="cedula">Cédula profesional</label>
+        <input id="cedula" name="cedula_profesional" type="text" maxlength="20" required
+               aria-describedby="ayuda-cedula">
+        <span id="ayuda-cedula" class="ayuda">De 5 a 20 letras o números, sin espacios. La revisará un administrador.</span>
+      </div>
+
+      <div class="campo">
+        <label for="especialidad">Especialidad (opcional)</label>
+        <input id="especialidad" name="especialidad" type="text" maxlength="100"
+               placeholder="Por ejemplo: Psicología del desarrollo infantil">
+      </div>
+
+      <div class="campo">
+        <label for="descripcion">Descripción para los padres (opcional)</label>
+        <textarea id="descripcion" name="descripcion" rows="3" maxlength="1000"></textarea>
+      </div>
+
+      <div class="campo">
+        <label for="duracion">Duración de cada cita</label>
+        <select id="duracion" name="duracion_cita_min">
+          <option value="30">30 minutos</option>
+          <option value="45">45 minutos</option>
+          <option value="60" selected>60 minutos</option>
+          <option value="90">90 minutos</option>
+        </select>
+      </div>
+
+      <p id="error-registro" class="mensaje-error" role="alert"></p>
+
+      <button id="boton-registrar" class="boton boton-primario" type="submit">Crear cuenta de psicólogo</button>
+    </form>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Esta herramienta no sustituye la valoración de un profesional de la salud.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/sesion.js"></script>
+  <script src="/js/registro-psicologo.js"></script>
+</body>
+</html>
