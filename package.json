@@ -7,11 +7,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "jest --runInBand",
     "bd:crear": "node scripts/crearBd.js",
     "crear-admin": "node scripts/crearAdmin.js",
     "cargar-preguntas": "node scripts/cargarPreguntas.js",
-    "test:exhaustivo": "jest --runInBand tests/exhaustivo.test.js",
     "tiempos": "node scripts/medirTiempos.js"
   },
   "engines": {
@@ -27,12 +25,5 @@
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1"
-  },
-  "devDependencies": {
-    "jest": "^30.5.2",
-    "supertest": "^7.0.0"
-  },
-  "jest": {
-    "testEnvironment": "node"
   }
 }

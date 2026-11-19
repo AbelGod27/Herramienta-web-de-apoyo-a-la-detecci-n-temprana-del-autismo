@@ -114,8 +114,7 @@ async function listarUsuarios(req, res) {
  * Suspender o reactivar una cuenta (borrado SOLO lógico: nunca se borra el usuario).
  * Reglas:
  *  - Nadie cambia el estado de su propia cuenta.
- *  - Nadie suspende al administrador principal.
- *  - Solo el administrador principal gestiona a los administradores secundarios.
+ *  - Nadie suspende al administrador principal (así siempre queda alguien con acceso).
  */
 async function cambiarEstadoCuenta(req, res) {
   const { id } = req.params;
@@ -135,15 +134,12 @@ async function cambiarEstadoCuenta(req, res) {
   if (rolCuenta === 'admin_principal') {
     throw new ErrorHttp(403, 'La cuenta del administrador principal no se puede suspender');
   }
-  if (rolCuenta === 'admin_secundario' && req.usuario.rol !== 'admin_principal') {
-    throw new ErrorHttp(403, 'Solo el administrador principal puede gestionar a otros administradores');
-  }
 
   await consulta('UPDATE usuario SET activo = $2 WHERE id_usuario = $1', [id, activo]);
   res.json({ id_usuario: id, activo, mensaje: activo ? 'Cuenta reactivada' : 'Cuenta suspendida' });
 }
 
-// ---------- Administradores secundarios (solo admin principal) ----------
+// ---------- Administradores secundarios ----------
 
 /** GET /api/admin/administradores */
 async function listarAdministradores(req, res) {
@@ -180,7 +176,7 @@ async function crearAdministrador(req, res) {
   res.status(201).json(rows[0]);
 }
 
-// ---------- Catálogo de preguntas (solo admin principal) ----------
+// ---------- Catálogo de preguntas ----------
 
 /** GET /api/admin/preguntas */
 async function listarPreguntas(req, res) {
@@ -211,7 +207,7 @@ async function editarPregunta(req, res) {
   res.json(rows[0]);
 }
 
-// ---------- Catálogo de niveles de riesgo (solo admin principal) ----------
+// ---------- Catálogo de niveles de riesgo ----------
 
 /** GET /api/admin/niveles */
 async function listarNiveles(req, res) {

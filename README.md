@@ -15,7 +15,7 @@ npm run crear-admin
 npm run dev                 # http://localhost:3000
 ```
 
-`npm test` corre las pruebas; `npm run test:exhaustivo` y `npm run tiempos` imprimen los resultados para el artículo.
+`npm run tiempos` imprime los tiempos de respuesta para el artículo.
 
 ## Documentación
 

@@ -1,7 +1,6 @@
-// Panel de administración. Muestra las secciones según el rol:
-//  - admin_secundario: estadísticas, validación de psicólogos y gestión de cuentas.
-//  - admin_principal: lo mismo + administradores secundarios, preguntas y niveles de riesgo.
-// El servidor vuelve a revisar todos los permisos; ocultar secciones aquí es solo comodidad.
+// Panel de administración. El administrador principal y los secundarios ven el mismo panel
+// completo: estadísticas, psicólogos, cuentas, administradores, preguntas y niveles de riesgo.
+// El servidor vuelve a revisar todos los permisos.
 
 let usuarioActual = null;
 let paginaCuentas = 1;
@@ -218,7 +217,6 @@ document.getElementById('filtro-psicologos').addEventListener('change', cargarPs
 function puedeGestionar(cuenta) {
   if (cuenta.id_usuario === usuarioActual.id_usuario) return false;
   if (cuenta.rol === 'admin_principal') return false;
-  if (cuenta.rol === 'admin_secundario') return usuarioActual.rol === 'admin_principal';
   return true;
 }
 
@@ -296,7 +294,7 @@ document.getElementById('pagina-siguiente').addEventListener('click', () => {
   cargarCuentas();
 });
 
-// ---------- Administradores secundarios (solo principal) ----------
+// ---------- Administradores secundarios ----------
 
 async function cargarAdministradores() {
   const lista = document.getElementById('lista-administradores');
@@ -339,7 +337,7 @@ formAdmin.addEventListener('submit', async (evento) => {
   }
 });
 
-// ---------- Preguntas (solo principal) ----------
+// ---------- Preguntas ----------
 
 let preguntaEnEdicion = null; // número de la pregunta abierta (solo una a la vez)
 
@@ -442,7 +440,7 @@ async function cargarPreguntas() {
   }
 }
 
-// ---------- Niveles de riesgo (solo principal) ----------
+// ---------- Niveles de riesgo ----------
 
 /** Crea un campo con etiqueta. */
 function crearCampo(textoEtiqueta, control) {
@@ -543,12 +541,10 @@ async function iniciar() {
   document.getElementById('texto-rol').textContent =
     `${usuarioActual.nombre} ${usuarioActual.apellidos} · ${NOMBRES_ROL[usuarioActual.rol]}`;
 
-  const esPrincipal = usuarioActual.rol === 'admin_principal';
-  document.querySelectorAll('.solo-principal').forEach((el) => el.classList.toggle('oculto', !esPrincipal));
-
-  const tareas = [cargarEstadisticas(), cargarPsicologos(), cargarCuentas()];
-  if (esPrincipal) tareas.push(cargarAdministradores(), cargarPreguntas(), cargarNiveles());
-  await Promise.all(tareas);
+  await Promise.all([
+    cargarEstadisticas(), cargarPsicologos(), cargarCuentas(),
+    cargarAdministradores(), cargarPreguntas(), cargarNiveles(),
+  ]);
 }
 
 iniciar();

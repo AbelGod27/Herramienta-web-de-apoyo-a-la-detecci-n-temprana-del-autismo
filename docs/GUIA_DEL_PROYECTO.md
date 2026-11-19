@@ -32,8 +32,6 @@ Otros comandos:
 
 | Comando | Para qué sirve |
 |---|---|
-| `npm test` | Corre las 174 pruebas automáticas |
-| `npm run test:exhaustivo` | Solo la prueba de las 1,048,576 combinaciones (imprime tablas para el artículo) |
 | `npm run tiempos` | Mide los tiempos de respuesta (imprime tabla para el artículo) |
 
 Todo corre en tu computadora (localhost): no hay servicios externos, CDNs, correos ni HTTPS. La cookie de sesión tiene `secure` controlado por `COOKIE_SECURE` en `.env` para poder activarlo en el futuro.
@@ -54,7 +52,7 @@ Todo corre en tu computadora (localhost): no hay servicios externos, CDNs, corre
                                         └──────────────────────────────────────────┘
 ```
 
-**Idea clave para explicar:** cada capa tiene una sola responsabilidad. Las rutas no calculan nada, los controladores no validan formatos y los **servicios son funciones puras** (no tocan la base de datos), por eso se pueden probar solos, como en la prueba exhaustiva.
+**Idea clave para explicar:** cada capa tiene una sola responsabilidad. Las rutas no calculan nada, los controladores no validan formatos y los **servicios son funciones puras** (no tocan la base de datos), por eso son fáciles de leer y de reutilizar.
 
 ### Recorrido de una petición: "ver mi resultado"
 
@@ -84,7 +82,6 @@ Cuando el padre contesta la última pregunta, el navegador hace `POST /api/aplic
 | `public/` | Páginas: inicio, cuestionario, resultado, registro, login, panel del padre, del psicólogo y del administrador |
 | `bd/` | `esquema.sql` (tablas), `datos_iniciales.sql` (roles, niveles), `preguntas.json` (texto oficial, **no se sube a Git**) |
 | `scripts/` | `crearBd`, `crearAdmin`, `cargarPreguntas`, `medirTiempos` |
-| `tests/` | 9 archivos de pruebas (unitarias, de integración y exhaustiva) |
 
 ---
 
@@ -118,8 +115,7 @@ Decisiones que vale la pena mencionar:
 |---|---|
 | **Padre o tutor** | Contestar sin cuenta; registrarse (con consentimiento expreso); registrar hijos; ver el historial; vincular el cuestionario anónimo; pedir, ver y cancelar citas |
 | **Psicólogo** | Registrarse (queda `validado = false`); configurar horario semanal y bloqueos; ver **solo sus** citas; confirmar, cancelar y registrar el seguimiento; ver el resultado y las respuestas **solo** de niños con cita con él |
-| **Admin secundario** | Validar la cédula de psicólogos; suspender o reactivar cuentas de padres y psicólogos; ver estadísticas anónimas |
-| **Admin principal** (uno) | Todo lo anterior + crear y suspender admins secundarios + editar preguntas y niveles de riesgo |
+| **Administrador** (principal o secundario) | Mismo panel y mismos permisos: validar la cédula de psicólogos; suspender o reactivar cuentas; crear administradores secundarios; editar preguntas y niveles de riesgo; ver estadísticas anónimas. La única diferencia: el principal (uno, creado con `crear-admin`) no puede ser suspendido |
 
 **Todo se valida en el servidor.** Las consultas filtran por el usuario de la sesión (`WHERE n.id_tutor = $1`, `AND id_psicologo = $2`), así que aunque alguien modifique el JavaScript del navegador, no puede ver datos ajenos: recibe 403 o 404.
 
@@ -171,9 +167,6 @@ Si dos padres piden el mismo espacio al mismo tiempo, los dos podrían ver el es
 
 1. Al reservar, el servidor **vuelve a calcular** la disponibilidad dentro de una transacción.
 2. Aun así, si los dos llegan en el mismo milisegundo, el **índice único** de la base de datos rechaza el segundo `INSERT` (error `23505`), y el servidor responde: *"Ese horario acaba de ser reservado por otra persona. Elige otro."*
-
-La prueba automática lanza las dos reservas en paralelo (`Promise.all`) y comprueba que exactamente una obtiene 201 y la otra 409.
-
 ---
 
 ## 8. Seguridad y privacidad (dónde está cada cosa)
@@ -205,40 +198,9 @@ La prueba automática lanza las dos reservas en paralelo (`Promise.all`) y compr
 
 ---
 
-## 10. Pruebas y resultados para el artículo
+## 10. Tiempos de respuesta para el artículo
 
-**174 pruebas automáticas, todas pasan** (`npm test`):
-
-| Archivo | Qué prueba |
-|---|---|
-| `puntaje.test.js`, `edad.test.js`, `disponibilidad.test.js` | Funciones puras, caso por caso |
-| `exhaustivo.test.js` | Las 2^20 combinaciones contra una implementación de referencia independiente |
-| `cuestionario.test.js` | Flujo anónimo completo contra la base de pruebas |
-| `usuarios.test.js` | Registro, consentimiento, login, roles, hijos y vinculación |
-| `citas.test.js` | Psicólogos, horarios, bloqueos, citas, permisos y **doble reserva** |
-| `admin.test.js` | Permisos de administración, validación de psicólogos, catálogos y estadísticas |
-| `salud.test.js` | Ruta de salud y manejo de errores |
-
-### Prueba exhaustiva del algoritmo
-
-La implementación de referencia ([tests/referencia.js](../tests/referencia.js)) está escrita **de otra forma**: trata las 20 respuestas como bits de un número y calcula el puntaje con XOR y conteo de bits, sin reutilizar nada del servicio.
-
-| Métrica | Valor |
-|---|---|
-| Combinaciones evaluadas | 1,048,576 |
-| Coincidencias con la referencia | 1,048,576 |
-| Discrepancias | 0 |
-| Porcentaje de aciertos | 100.00 % |
-
-| Nivel | Puntaje | Combinaciones | % del total | Esperado por combinatoria |
-|---|---|---|---|---|
-| bajo | 0–2 | 211 | 0.02 % | 211 |
-| medio | 3–7 | 137,769 | 13.14 % | 137,769 |
-| alto | 8–20 | 910,596 | 86.84 % | 910,596 |
-
-(La distribución se verifica además con coeficientes binomiales: por ejemplo, bajo = C(20,0) + C(20,1) + C(20,2) = 1 + 20 + 190 = 211.)
-
-### Tiempos de respuesta (ms)
+Tiempos en milisegundos (`npm run tiempos`):
 
 | Operación | N | Promedio | Mediana | p95 | Mín | Máx |
 |---|---|---|---|---|---|---|
@@ -259,7 +221,6 @@ Medido el 19/11/2026 · Node v24.16.0 · Intel Core 5 210H · 15.6 GB de RAM · 
 5. **Psicólogo** (en otra ventana privada): regístrate como psicólogo → aparece el aviso "aún no validado" → configura un horario.
 6. **Administrador**: entra como admin → valida al psicólogo → muestra las estadísticas anónimas.
 7. **Cita**: vuelve al padre → "Pedir cita" → elige psicólogo, fecha y espacio libre → solicita. En la ventana del psicólogo: confirma, abre el resultado del niño y registra el seguimiento.
-8. **Cierre**: corre `npm run test:exhaustivo` en la terminal y muestra el 100 %.
 
 Consejo: prepara las cuentas (admin, un psicólogo ya validado con horario) antes de la presentación, por si falla algo en vivo.
 
@@ -268,8 +229,7 @@ Consejo: prepara las cuentas (admin, un psicólogo ya validado con horario) ante
 ## 12. Preguntas probables en el congreso
 
 - **¿Por qué no diagnostica?** Porque el M-CHAT-R es un cribado de alta sensibilidad: hay falsos positivos por diseño. Su función es decidir quién necesita una evaluación profesional.
-- **¿Cómo sabes que el algoritmo es correcto?** Lo comparamos contra una implementación independiente en las 1,048,576 combinaciones posibles: 0 discrepancias.
-- **¿Qué pasa si dos padres reservan el mismo horario?** La base de datos lo impide con un índice único; el segundo recibe un mensaje claro. Está probado con peticiones simultáneas.
+- **¿Qué pasa si dos padres reservan el mismo horario?** La base de datos lo impide con un índice único; el segundo recibe un mensaje claro.
 - **¿Cómo proteges los datos de los niños?** Cada consulta filtra por el usuario de la sesión, los admins solo ven totales, el cuestionario anónimo no guarda la fecha de nacimiento y las contraseñas van cifradas con bcrypt.
 - **¿Por qué sin frameworks en el frontend?** Para que el sistema sea ligero, funcione sin internet y sea fácil de auditar y explicar.
 - **¿Por qué la entrevista de seguimiento no está en línea?** La aplica el psicólogo en persona siguiendo los diagramas del M-CHAT-R/F; la plataforma registra su puntaje (2 o más = positivo).
@@ -280,7 +240,7 @@ Consejo: prepara las cuentas (admin, un psicólogo ya validado con horario) ante
 
 - Se usa la versión oficial en **español para el hemisferio occidental** (*Spanish – Western Hemisphere*, mchatscreen.com), la más cercana al español de México: no existe una versión específica para México.
 - © 2009 Diana Robins, Deborah Fein y Marianne Barton. Las pautas exigen: mostrar el aviso de derechos de autor (aparece en el cuestionario, el resultado y la hoja impresa), no modificar ítems, instrucciones ni orden, y usar las 20 preguntas completas. Su uso electrónico requiere permiso de las autoras.
-- El texto vive en `bd/preguntas.json`, que **no se sube a Git**. Para cambiarlo: edita ese archivo y corre `npm run cargar-preguntas` (y `-- --test`). El administrador principal también puede editar preguntas desde su panel.
+- El texto vive en `bd/preguntas.json`, que **no se sube a Git**. Para cambiarlo: edita ese archivo y corre `npm run cargar-preguntas` (y `-- --test`). Los administradores también pueden editar preguntas desde su panel.
 - Menciona en tu artículo la autorización que recibiste y la versión usada.
 
 ---
@@ -290,4 +250,4 @@ Consejo: prepara las cuentas (admin, un psicólogo ya validado con horario) ante
 - Suspender a un psicólogo no cancela automáticamente sus citas pendientes.
 - Que solo exista un administrador principal lo garantiza el script `crear-admin`, no la base de datos.
 - No hay recuperación de contraseña ni correos (decisión: proyecto local).
-- Las pantallas se revisaron con pruebas automáticas de la API y revisión de código; conviene recorrerlas a mano en el navegador antes de la presentación.
+- No hay pruebas automáticas: conviene recorrer todas las pantallas a mano en el navegador antes de la presentación.
