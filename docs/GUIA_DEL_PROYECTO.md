@@ -2,7 +2,7 @@
 
 Herramienta web de apoyo a la detección temprana del autismo (M-CHAT-R, 16 a 30 meses).
 
-Esta guía explica **qué hace cada parte, por qué está hecha así y cómo demostrarla**. Está ordenada de lo general a lo particular: si solo tienes 10 minutos, lee las secciones 1, 3 y 11.
+Esta guía explica **qué hace cada parte, por qué está hecha así y cómo demostrarla**. Está ordenada de lo general a lo particular.
 
 ---
 
