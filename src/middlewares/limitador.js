@@ -5,8 +5,7 @@ const config = require('../config/env');
 function crearLimitador(maximo, minutos, mensaje) {
   return rateLimit({
     windowMs: minutos * 60 * 1000,
-    // En las pruebas automáticas se hacen muchas peticiones seguidas desde la misma IP
-    limit: config.esPrueba ? 1000 : maximo,
+    limit: maximo,
     standardHeaders: 'draft-7',
     legacyHeaders: false,
     message: { error: mensaje },

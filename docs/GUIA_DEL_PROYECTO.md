@@ -21,18 +21,12 @@ Requisitos: Node.js 18 o superior y PostgreSQL.
 ```bash
 npm install                    # 1. instala las dependencias
 cp .env.example .env           # 2. crea el archivo de configuración (se llena con los datos de PostgreSQL)
-npm run bd:crear               # 3. crea las bases mchat y mchat_test con sus tablas y catálogos
-npm run cargar-preguntas       # 4. carga el texto oficial de las 20 preguntas (bd/preguntas.json)
-npm run cargar-preguntas -- --test   #    lo mismo en la base de medición
-npm run crear-admin            # 5. crea el administrador principal (datos ADMIN_* del .env)
-npm run dev                    # 6. inicia el sistema en http://localhost:3000
+npm run bd:crear               # 3. crea la base mchat con sus tablas, catálogos y las 20 preguntas
+npm run crear-admin            # 4. crea el administrador principal (datos ADMIN_* del .env)
+npm run dev                    # 5. inicia el sistema en http://localhost:3000
 ```
 
-Otros comandos:
-
-| Comando | Para qué sirve |
-|---|---|
-| `npm run tiempos` | Mide los tiempos de respuesta del sistema e imprime una tabla |
+El paso 3 carga el texto oficial de las preguntas desde `bd/preguntas.json`. Si ese archivo no existe, el cuestionario muestra preguntas de relleno hasta que se agregue y se ejecute `npm run cargar-preguntas`.
 
 Todo funciona en un solo equipo (localhost): no hay servicios externos, CDNs, correos ni HTTPS. La opción `secure` de la cookie de sesión se controla con `COOKIE_SECURE` en `.env`, para poder activarla si en el futuro se usa HTTPS.
 
@@ -81,7 +75,7 @@ Cuando el padre contesta la última pregunta, el navegador envía `POST /api/apl
 | `src/services/` | Funciones puras: `puntaje`, `edad`, `disponibilidad`, `niveles`, `estadisticas` |
 | `public/` | Páginas: inicio, cuestionario, resultado, registro, inicio de sesión, panel del padre, del psicólogo y del administrador |
 | `bd/` | `esquema.sql` (tablas), `datos_iniciales.sql` (roles, niveles), `preguntas.json` (texto oficial, **no se sube a Git**) |
-| `scripts/` | `crearBd`, `crearAdmin`, `cargarPreguntas`, `medirTiempos` |
+| `scripts/` | `crearBd`, `crearAdmin`, `cargarPreguntas` |
 
 ---
 
@@ -199,21 +193,7 @@ Si dos padres piden el mismo espacio al mismo tiempo, los dos podrían verlo lib
 
 ---
 
-## 10. Tiempos de respuesta
-
-Tiempos en milisegundos, obtenidos con `npm run tiempos`:
-
-| Operación | N | Promedio | Mediana | p95 | Mín | Máx |
-|---|---|---|---|---|---|---|
-| Cálculo del resultado (función pura) | 10,000 | 0.002 | 0.002 | 0.003 | 0.001 | 0.641 |
-| Cálculo del resultado (POST /finalizar) | 100 | 3.403 | 3.348 | 4.344 | 2.491 | 4.607 |
-| Consulta de disponibilidad (GET) | 100 | 2.497 | 2.419 | 3.190 | 1.640 | 5.005 |
-
-Medido el 19/11/2026 · Node v24.16.0 · Intel Core 5 210H · 15.6 GB de RAM · servidor y PostgreSQL en el mismo equipo.
-
----
-
-## 11. Recorrido de uso
+## 10. Recorrido de uso
 
 1. **Cuestionario anónimo**: en `http://localhost:3000` se escribe la fecha de nacimiento (el sistema muestra la edad calculada) y se contestan las 20 preguntas, con barra de progreso y botón "Anterior".
 2. **Resultado**: nivel con ícono y texto, recomendación y lista de respuestas con las posibles señales de alerta marcadas. Se puede imprimir o guardar como PDF.
@@ -225,7 +205,7 @@ Medido el 19/11/2026 · Node v24.16.0 · Intel Core 5 210H · 15.6 GB de RAM · 
 
 ---
 
-## 12. Preguntas frecuentes
+## 11. Preguntas frecuentes
 
 - **¿Por qué no diagnostica?** Porque el M-CHAT-R es un cribado de alta sensibilidad: hay falsos positivos por diseño. Su función es identificar quién necesita una evaluación profesional.
 - **¿Qué pasa si dos padres reservan el mismo horario?** La base de datos lo impide con un índice único; el segundo recibe un mensaje claro.
@@ -235,15 +215,15 @@ Medido el 19/11/2026 · Node v24.16.0 · Intel Core 5 210H · 15.6 GB de RAM · 
 
 ---
 
-## 13. Sobre el instrumento M-CHAT-R
+## 12. Sobre el instrumento M-CHAT-R
 
 - Se usa la versión oficial en **español para el hemisferio occidental** (*Spanish – Western Hemisphere*, mchatscreen.com), la más cercana al español de México: no existe una versión específica para México.
 - © 2009 Diana Robins, Deborah Fein y Marianne Barton. Las pautas exigen mostrar el aviso de derechos de autor (aparece en el cuestionario, el resultado y la hoja impresa), no modificar ítems, instrucciones ni orden, y usar las 20 preguntas completas. Su uso electrónico requiere permiso de las autoras, con el que cuenta este proyecto.
-- El texto está en `bd/preguntas.json`, que **no se sube a Git**. Para cambiarlo se edita ese archivo y se ejecuta `npm run cargar-preguntas` (y `-- --test`). Los administradores también pueden editar preguntas desde su panel.
+- El texto está en `bd/preguntas.json`, que **no se sube a Git**. Para cambiarlo se edita ese archivo y se ejecuta `npm run cargar-preguntas`. Los administradores también pueden editar preguntas desde su panel.
 
 ---
 
-## 14. Limitaciones conocidas
+## 13. Limitaciones conocidas
 
 - Suspender a un psicólogo no cancela automáticamente sus citas pendientes.
 - Que solo exista un administrador principal lo garantiza el script `crear-admin`, no la base de datos.

@@ -9,17 +9,14 @@ Proyecto de Ingeniería en Sistemas Computacionales (ESCOM-IPN). Node.js + Expre
 ```bash
 npm install
 cp .env.example .env        # llena tus datos de PostgreSQL
-npm run bd:crear
-npm run cargar-preguntas && npm run cargar-preguntas -- --test
+npm run bd:crear            # incluye las preguntas de bd/preguntas.json
 npm run crear-admin
 npm run dev                 # http://localhost:3000
 ```
 
-`npm run tiempos` imprime los tiempos de respuesta para el artículo.
-
 ## Documentación
 
-La explicación completa (arquitectura, base de datos, roles, algoritmos, seguridad, resultados y guion de demostración) está en [docs/GUIA_DEL_PROYECTO.md](docs/GUIA_DEL_PROYECTO.md).
+La explicación completa (arquitectura, base de datos, roles, algoritmos, seguridad y recorrido de uso) está en [docs/GUIA_DEL_PROYECTO.md](docs/GUIA_DEL_PROYECTO.md).
 
 ---
 

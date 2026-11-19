@@ -1,12 +1,15 @@
-// Crea las bases de datos (principal y de pruebas) y les aplica el esquema y los datos iniciales.
+// Crea la base de datos, le aplica el esquema y los datos iniciales,
+// y carga el texto de las preguntas si existe bd/preguntas.json.
 // Uso: npm run bd:crear
 // Es seguro ejecutarlo varias veces: no borra datos existentes.
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { Client } = require('pg');
+const { ARCHIVO_PREGUNTAS, leerPreguntas, guardarPreguntas } = require('./cargarPreguntas');
 
 const ZONA_HORARIA = process.env.TZ || 'America/Mexico_City';
+const NOMBRE_BD = process.env.PGDATABASE;
 
 // Conexión base (sin indicar la base de datos)
 const conexion = {
@@ -16,13 +19,11 @@ const conexion = {
   password: process.env.PGPASSWORD,
 };
 
-const basesDeDatos = [process.env.PGDATABASE, process.env.PGDATABASE_TEST].filter(Boolean);
-
 const esquema = fs.readFileSync(path.join(__dirname, '..', 'bd', 'esquema.sql'), 'utf8');
 const datos = fs.readFileSync(path.join(__dirname, '..', 'bd', 'datos_iniciales.sql'), 'utf8');
 
-// Los nombres de base de datos no se pueden pasar como parámetro ($1),
-// así que se validan con una expresión regular antes de usarlos.
+// El nombre de la base de datos no se puede pasar como parámetro ($1),
+// así que se valida con una expresión regular antes de usarlo.
 function validarNombre(nombre) {
   if (!/^[a-z_][a-z0-9_]*$/.test(nombre)) {
     throw new Error(`Nombre de base de datos no válido: "${nombre}" (usa minúsculas, números y _)`);
@@ -30,7 +31,7 @@ function validarNombre(nombre) {
 }
 
 async function crearSiNoExiste(nombre) {
-  // Se conecta a la base "postgres", que siempre existe, para poder crear las demás
+  // Se conecta a la base "postgres", que siempre existe, para poder crear la nueva
   const cliente = new Client({ ...conexion, database: 'postgres' });
   await cliente.connect();
   try {
@@ -49,6 +50,10 @@ async function crearSiNoExiste(nombre) {
 }
 
 async function aplicarEsquema(nombre) {
+  // Si existe el archivo de preguntas, se lee y valida ANTES de tocar la base de datos
+  const hayPreguntas = fs.existsSync(ARCHIVO_PREGUNTAS);
+  const preguntas = hayPreguntas ? leerPreguntas(ARCHIVO_PREGUNTAS) : null;
+
   const cliente = new Client({ ...conexion, database: nombre });
   await cliente.connect();
   try {
@@ -56,8 +61,17 @@ async function aplicarEsquema(nombre) {
     await cliente.query('BEGIN');
     await cliente.query(esquema);
     await cliente.query(datos);
+    if (preguntas) await guardarPreguntas(cliente, preguntas);
     await cliente.query('COMMIT');
+
     console.log(`  Esquema y datos iniciales aplicados en "${nombre}".`);
+    if (preguntas) {
+      console.log('  Se cargaron las 20 preguntas de bd/preguntas.json.');
+    } else {
+      console.log('  AVISO: no existe bd/preguntas.json; el cuestionario mostrará preguntas de relleno.');
+      console.log('         Copia bd/preguntas.ejemplo.json como bd/preguntas.json, pega el texto oficial');
+      console.log('         y ejecuta npm run cargar-preguntas.');
+    }
   } catch (err) {
     await cliente.query('ROLLBACK');
     throw err;
@@ -73,15 +87,13 @@ async function main() {
   if (!process.env.PGPASSWORD || process.env.PGPASSWORD === 'cambia_esta_contrasena') {
     throw new Error('Escribe en PGPASSWORD (archivo .env) la contraseña de tu usuario de PostgreSQL.');
   }
-  if (basesDeDatos.length === 0) {
-    throw new Error('Define PGDATABASE (y opcionalmente PGDATABASE_TEST) en el archivo .env');
+  if (!NOMBRE_BD) {
+    throw new Error('Define PGDATABASE en el archivo .env');
   }
-  for (const nombre of basesDeDatos) {
-    validarNombre(nombre);
-    console.log(`\n[${nombre}]`);
-    await crearSiNoExiste(nombre);
-    await aplicarEsquema(nombre);
-  }
+  validarNombre(NOMBRE_BD);
+  console.log(`\n[${NOMBRE_BD}]`);
+  await crearSiNoExiste(NOMBRE_BD);
+  await aplicarEsquema(NOMBRE_BD);
   console.log('\nListo.');
 }
 
