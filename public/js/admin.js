@@ -490,7 +490,7 @@ async function cargarNiveles() {
       recomendacion.value = n.recomendacion;
 
       const rango = crear('div', 'rango-nivel');
-      rango.append(crearCampo('Puntaje mínimo', minimo), crearCampo('Puntaje máximo', maximo));
+      rango.append(crearCampo('Puntaje mín.', minimo), crearCampo('Puntaje máx.', maximo));
 
       grupo.append(crearCampo('Nombre', nombre), rango, crearCampo('Recomendación', recomendacion));
       contenedor.append(grupo);

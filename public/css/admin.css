@@ -36,8 +36,9 @@
 /* ---------- Estadísticas ---------- */
 .tarjetas-resumen {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
-  gap: 0.75rem;
+  /* Dos tarjetas por renglón en celular; más en pantallas grandes */
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.5rem;
   margin: 1rem 0 1.5rem;
 }
 
@@ -45,7 +46,7 @@
   border: 1px solid #DCD5C8;
   border-left: 6px solid var(--verde-salvia);
   border-radius: var(--radio);
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.75rem;
 }
 
 .dato-resumen .numero {
@@ -182,6 +183,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 1rem;
+  align-items: end; /* las dos casillas quedan a la misma altura */
+}
+
+/* La recomendación se ve completa sin tener que desplazarse dentro del cuadro */
+#campos-niveles textarea {
+  min-height: 12rem;
 }
 
 @media (min-width: 40rem) {

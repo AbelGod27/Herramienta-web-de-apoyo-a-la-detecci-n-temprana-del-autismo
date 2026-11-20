@@ -33,6 +33,15 @@ body {
   line-height: 1.6;
   color: var(--gris-carbon);
   background: var(--crema);
+  /* Parte palabras muy largas (correos, por ejemplo) para que nunca se salgan de la pantalla */
+  overflow-wrap: anywhere;
+}
+
+/* Ningún campo puede ser más ancho que su contenedor */
+input,
+select,
+textarea {
+  max-width: 100%;
 }
 
 /* Enlace para saltar al contenido con teclado */
@@ -93,6 +102,15 @@ a {
   color: var(--azul-petroleo);
   text-decoration: none;
   font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+/* "Iniciar sesión" / "Cerrar sesión": siempre a la derecha y en una sola línea */
+.encabezado .boton-enlace {
+  margin-left: auto;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  white-space: nowrap;
 }
 
 .logo {
@@ -124,8 +142,24 @@ main.contenedor {
   background: var(--blanco);
   border-radius: var(--radio);
   box-shadow: var(--sombra);
-  padding: 1.25rem;
+  padding: 1rem; /* en celular, menos relleno para dejar más ancho al contenido */
   margin-bottom: 1.25rem;
+}
+
+/* El primer y el último elemento no suman margen al relleno de la tarjeta */
+.tarjeta > :first-child,
+.nota-importante > :first-child {
+  margin-top: 0;
+}
+.tarjeta > :last-child,
+.nota-importante > :last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 40rem) {
+  .tarjeta {
+    padding: 1.25rem;
+  }
 }
 
 .aviso {
@@ -397,7 +431,8 @@ progress::-moz-progress-bar {
 
 .datos-resultado {
   display: grid;
-  grid-template-columns: auto 1fr;
+  /* La columna de etiquetas nunca ocupa más del 40 %: así los datos tienen espacio */
+  grid-template-columns: fit-content(40%) 1fr;
   gap: 0.25rem 1rem;
   margin: 0;
 }
@@ -496,6 +531,12 @@ progress::-moz-progress-bar {
 
 .encabezado-seccion h2 {
   margin: 0;
+}
+
+/* Lo que acompaña al título nunca puede ser más ancho que la tarjeta */
+.encabezado-seccion > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Botón más compacto, para acciones secundarias junto a un título */
